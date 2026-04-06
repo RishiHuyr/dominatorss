@@ -40,6 +40,8 @@
     </script>
     <link href="styles.css" rel="stylesheet" />
     <script defer src="script.js"></script>
+    <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+    <script defer src="triage.js"></script>
     <!-- Socket.io -->
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script defer src="issue-analysis.js"></script>
@@ -55,16 +57,16 @@
                     <span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">dataset</span>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold tracking-tighter text-indigo-400">OpenIssue</h1>
-                    <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">AI Triage</p>
+                    <h1 class="text-2xl font-extrabold tracking-tighter text-indigo-400 text-white">OpenIssue</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-on-surface">AI Triage</p>
                 </div>
             </div>
             <nav class="space-y-2">
-                <a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-300 hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="index.html">
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="index.html">
                     <span class="material-symbols-outlined">dashboard</span>
                     <span>Dashboard</span>
                 </a>
-                <a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-300 hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="auto-labeling.html">
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="auto-labeling.html">
                     <span class="material-symbols-outlined">label_important</span>
                     <span>Auto Labeling</span>
                 </a>
@@ -72,19 +74,19 @@
                     <span class="material-symbols-outlined">analytics</span>
                     <span>Issue Analysis</span>
                 </a>
-                <a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-300 hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="duplicate-detection.html">
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="duplicate-detection.html">
                     <span class="material-symbols-outlined">difference</span>
                     <span>Duplicates</span>
                 </a>
-                <a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-300 hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="priority-dashboard.html">
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="priority-dashboard.html">
                     <span class="material-symbols-outlined">priority_high</span>
                     <span>Priority</span>
                 </a>
-                <a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-300 hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="insights.html">
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="insights.html">
                     <span class="material-symbols-outlined">insights</span>
                     <span>Insights</span>
                 </a>
-                <a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-indigo-300 hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="settings.html">
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="settings.html">
                     <span class="material-symbols-outlined">settings</span>
                     <span>Settings</span>
                 </a>
@@ -100,20 +102,26 @@
     <!-- TopAppBar -->
     <header class="flex items-center justify-between px-4 md:px-8 ml-0 md:ml-64 h-16 bg-surface/80 backdrop-blur-lg sticky top-0 z-40 transition-all duration-300 font-body font-medium border-b border-white/5">
         <div class="flex items-center flex-1 gap-4">
-            <button id="sidebar-toggle" class="md:hidden p-2 text-slate-400 hover:bg-white/10 rounded-full transition-all">
+            <button id="sidebar-toggle" class="md:hidden p-2 text-slate-200 hover:bg-white/10 rounded-full transition-all">
                 <span class="material-symbols-outlined">menu</span>
             </button>
             <div class="relative w-full max-w-md hidden sm:block group">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
-                <input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary focus:bg-surface-container-high transition-all text-on-surface placeholder:text-on-surface-variant/50" placeholder="Search parameters..." type="text" />
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface text-sm">search</span>
+                <input class="w-full bg-surface-container-low-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary focus:bg-surface-container-low transition-all text-on-surface placeholder:text-white focus:bg-surface-container-high focus:border-primary" placeholder="Search parameters..." type="text" />
             </div>
         </div>
         <div class="flex items-center gap-2 md:gap-4">
-            <button class="p-2 text-slate-400 hover:bg-white/10 rounded-full transition-all">
+            <button class="p-2 text-slate-200 hover:bg-white/10 rounded-full transition-all">
                 <span class="material-symbols-outlined">notifications</span>
             </button>
             <div class="h-8 w-[1px] bg-white/5 mx-1 md:mx-2"></div>
-            <img alt="User Profile" class="h-9 w-9 rounded-full border border-white/10 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIkgr_4veDS0wh_q5mxF8l5KQxEiEc0B_9qBbNicGEhTYry0isxRSK6HW3YmToGwPbvqCNLV6FmGxpjFHSgZ1TwZDPy5_LarNfTce_LgsPx3A6Kyt9nrO9Euer9bk-9elWm9syPod1_xV5WxsxWx0ftoJQV6pH_awXn-uRq0rAUx_treJdlFCCPO5oua794Na3VMEY_uNMhkV1LBoS1crf9j-q4AmG1kMroeRXyyVSW_NWW2HPDljwjkCsfCQvjSJGqSbszzBYoB5V" />
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p id="nav-username" class="text-sm font-bold text-on-surface">Guest User</p>
+                    <p class="text-[10px] text-on-surface italic">GitHub Connected</p>
+                </div>
+                <img id="nav-avatar" alt="User Profile" class="h-9 w-9 rounded-full border border-white/10 object-cover bg-surface-container-high" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a7aaba'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E" />
+            </div>
         </div>
     </header>
 
@@ -126,8 +134,8 @@
         <div class="w-full max-w-5xl z-10">
             <!-- Dynamic Issue Loader -->
             <div class="mb-6 flex flex-col md:flex-row items-center gap-4 border border-white/10 bg-white/5 p-4 rounded-2xl w-full">
-                <input type="text" id="repo-input" value="microsoft/vscode" class="bg-surface-container border border-white/10 rounded-lg py-2 px-3 focus:ring-primary w-full md:w-48 text-sm" placeholder="owner/repo">
-                <input type="text" id="issue-input" value="8492" class="bg-surface-container border border-white/10 rounded-lg py-2 px-3 focus:ring-primary w-full md:w-32 text-sm" placeholder="Issue #">
+                <input type="text" id="repo-input" value="microsoft/vscode" class="bg-surface-container-low border border-white/10 rounded-lg py-2 px-3 focus:ring-primary w-full md:w-48 text-sm text-white placeholder:text-slate-400 focus:ring-2 focus:bg-surface-container-high focus:border-primary" placeholder="owner/repo">
+                <input type="text" id="issue-input" value="8492" class="bg-surface-container-low border border-white/10 rounded-lg py-2 px-3 focus:ring-primary w-full md:w-32 text-sm text-white placeholder:text-slate-400 focus:ring-2 focus:bg-surface-container-high focus:border-primary" placeholder="Issue #">
                 <button id="load-issue-btn" class="bg-primary hover:bg-primary-dim text-on-primary px-4 py-2 rounded-xl text-sm font-bold shadow-[0_0_10px_rgba(163,166,255,0.4)] transition-all flex items-center gap-2">
                     <span class="material-symbols-outlined text-sm">download</span> Fetch Data
                 </button>
@@ -138,7 +146,7 @@
                 <div class="flex items-center gap-3 mb-4" id="issue-header-labels">
                     <!-- Labels injected dynamically -->
                 </div>
-                <h2 id="issue-title" class="text-4xl lg:text-6xl font-bold font-headline tracking-tighter text-on-surface leading-tight">
+                <h2 id="issue-title" class="text-4xl lg:text-6xl font-extrabold font-headline tracking-tighter text-white leading-tight">
                     Issue Title Loading...
                 </h2>
             </header>
@@ -152,7 +160,7 @@
                         <div class="w-3 h-3 rounded-full bg-surface-container-highest border border-white/10"></div>
                         <div class="w-3 h-3 rounded-full bg-surface-container-highest border border-white/10"></div>
                     </div>
-                    <div class="mx-auto text-xs font-bold text-on-surface-variant tracking-widest uppercase">Deep Dive Analysis</div>
+                    <div class="mx-auto text-xs font-bold text-on-surface tracking-widest uppercase">Deep Dive Analysis</div>
                     <div class="flex gap-2 opacity-0"><div class="w-3 h-3"></div><div class="w-3 h-3"></div><div class="w-3 h-3"></div></div>
                 </div>
 
@@ -168,7 +176,7 @@
                         <div class="flex-1 space-y-2">
                             <div class="flex items-baseline gap-3">
                                 <span id="issue-author" class="font-bold text-on-surface font-headline">Author</span>
-                                <span id="issue-time" class="text-xs text-on-surface-variant">Time</span>
+                                <span id="issue-time" class="text-xs text-on-surface">Time</span>
                             </div>
                             <div id="issue-body" class="bg-white/5 rounded-2xl rounded-tl-none p-5 text-sm md:text-base leading-relaxed border border-white/5 overflow-x-auto">
                                 <!-- Markdown body -->
@@ -199,15 +207,15 @@
                             <div class="bg-gradient-to-b from-primary/10 to-transparent rounded-2xl rounded-tl-none p-6 text-sm md:text-base leading-relaxed border border-primary/20 space-y-5">
                                 <p id="ai-analysis-text"></p>
                                 
-                                <div id="ai-code-patch" class="bg-surface-container rounded-xl p-4 border border-white/5 font-mono text-xs overflow-x-auto text-on-surface-variant hidden">
+                                <div id="ai-code-patch" class="bg-surface-container rounded-xl p-4 border border-white/5 font-mono text-xs overflow-x-auto text-on-surface hidden">
                                 </div>
 
                                 <div class="space-y-2">
-                                    <h4 class="font-bold font-headline text-on-surface flex items-center gap-2">
+                                    <h4 class="font-extrabold font-headline text-white flex items-center gap-2 tracking-tight">
                                         <span class="material-symbols-outlined text-secondary text-sm">build_circle</span>
                                         Suggested Remediation
                                     </h4>
-                                    <div id="ai-fix-suggestion" class="text-on-surface-variant text-sm"></div>
+                                    <div id="ai-fix-suggestion" class="text-on-surface text-sm"></div>
                                 </div>
                             </div>
                             
@@ -227,16 +235,16 @@
                 <!-- Input Area -->
                 <div class="h-20 md:h-24 bg-surface-container-low border-t border-white/5 px-6 md:px-10 flex items-center gap-4 relative">
                     <div class="w-full absolute top-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
-                    <span class="material-symbols-outlined text-on-surface-variant">attach_file</span>
-                    <input type="text" placeholder="Ask follow-up questions or request code synthesis..." class="flex-1 bg-transparent border-none text-on-surface placeholder-on-surface-variant focus:ring-0 font-body text-sm md:text-base px-2">
-                    <button class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-colors text-on-surface-variant">
+                    <span class="material-symbols-outlined text-on-surface">attach_file</span>
+                    <input type="text" placeholder="Ask follow-up questions or request code synthesis..." class="flex-1 bg-transparent border-none text-on-surface placeholder-on-surface-variant focus:ring-0 font-body text-sm md:text-base px-2 text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary focus:bg-surface-container-high focus:border-primary">
+                    <button class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-colors text-on-surface">
                         <span class="material-symbols-outlined transform -rotate-45 ml-1 mb-1">send</span>
                     </button>
                 </div>
             </div>
             
             <!-- Contextual Metadata -->
-             <div class="mt-8 flex flex-wrap gap-6 text-sm text-on-surface-variant justify-center items-center" id="meta-badges">
+             <div class="mt-8 flex flex-wrap gap-6 text-sm text-on-surface justify-center items-center" id="meta-badges">
                  <!-- Badges injected by real AI data -->
              </div>
         </div>

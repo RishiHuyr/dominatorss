@@ -51,14 +51,14 @@
             <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-dim flex items-center justify-center shadow-[0_0_25px_rgba(163,166,255,0.4)] mb-4 transform hover:scale-105 transition-transform">
                 <span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings: 'FILL' 1;">dataset</span>
             </div>
-            <h1 class="text-3xl font-bold tracking-tighter text-indigo-400 font-headline">OpenIssue</h1>
-            <p class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-bold mt-1">Authentication</p>
+            <h1 class="text-3xl font-extrabold tracking-tighter text-indigo-400 font-headline text-white">OpenIssue</h1>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-on-surface font-bold mt-1">Authentication</p>
         </div>
 
         <!-- Auth Card -->
         <div class="glass-card rounded-[2rem] border border-white/10 p-8 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
-            <h2 class="text-2xl font-headline font-bold text-center mb-2">Welcome Back</h2>
-            <p class="text-sm text-on-surface-variant text-center mb-8">Access your neural triage dashboard</p>
+            <h2 class="text-2xl font-headline font-extrabold text-center mb-2 text-white tracking-tight">Welcome Back</h2>
+            <p class="text-sm text-on-surface text-center mb-8">Access your neural triage dashboard</p>
 
             <div id="alert-container"></div>
 
@@ -66,23 +66,23 @@
                 
                 <!-- Email Field -->
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Email Address</label>
+                    <label class="block text-xs font-bold text-white uppercase tracking-wider mb-2">Email Address</label>
                     <div class="relative group">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px] group-focus-within:text-primary transition-colors">mail</span>
-                        <input id="email" type="email" required placeholder="admin@openissue.com" class="w-full bg-surface-container-high border border-white/5 rounded-xl py-3 pl-12 pr-4 text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all placeholder:text-on-surface-variant/50">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface text-[20px] group-focus-within:text-primary transition-colors">mail</span>
+                        <input id="email" type="email" required placeholder="admin@openissue.com" class="w-full bg-surface-container-low border border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-white focus:bg-surface-container-high">
                     </div>
                 </div>
 
                 <!-- Password Field -->
                 <div>
                     <div class="flex justify-between items-center mb-2">
-                        <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider">Password</label>
+                        <label class="block text-xs font-bold text-white uppercase tracking-wider">Password</label>
                         <a href="#" class="text-xs text-primary font-bold hover:underline">Forgot?</a>
                     </div>
                     <div class="relative group">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px] group-focus-within:text-primary transition-colors">lock</span>
-                        <input id="password" type="password" required placeholder="••••••••" class="w-full bg-surface-container-high border border-white/5 rounded-xl py-3 pl-12 pr-12 text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all placeholder:text-on-surface-variant/50">
-                        <button type="button" class="toggle-password absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface transition-colors" data-target="password">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface text-[20px] group-focus-within:text-primary transition-colors">lock</span>
+                        <input id="password" type="password" required placeholder="••••••••" class="w-full bg-surface-container-low border border-white/10 rounded-xl py-3 pl-12 pr-12 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-white focus:bg-surface-container-high">
+                        <button type="button" class="toggle-password absolute right-4 top-1/2 -translate-y-1/2 text-on-surface hover:text-on-surface transition-colors" data-target="password">
                             <span class="material-symbols-outlined text-[20px]">visibility_off</span>
                         </button>
                     </div>
@@ -91,7 +91,7 @@
                 <!-- Remember Me -->
                 <div class="flex items-center gap-3 pt-2">
                     <input id="remember" type="checkbox" class="w-4 h-4 rounded border-white/20 bg-surface-container-high text-primary focus:ring-primary focus:ring-offset-0 cursor-pointer">
-                    <label for="remember" class="text-sm text-on-surface-variant cursor-pointer select-none">Remember 30 days</label>
+                    <label for="remember" class="text-sm text-white cursor-pointer select-none">Remember 30 days</label>
                 </div>
 
                 <!-- Submit Button -->
@@ -103,7 +103,7 @@
             </form>
 
             <div class="mt-8 pt-6 border-t border-white/5 text-center">
-                <p class="text-sm text-on-surface-variant">
+                <p class="text-sm text-on-surface">
                     Don't have an account? 
                     <a href="signup.html" class="text-primary font-bold hover:underline ml-1">Request Oracle Access</a>
                 </p>

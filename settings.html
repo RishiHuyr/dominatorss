@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>OpenIssue | Settings</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <!-- Scripts & Styles -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#a3a6ff",
+                        "primary-dim": "#6063ee",
+                        "secondary": "#a28efc",
+                        "tertiary": "#ffa5d9",
+                        "error": "#ff6e84",
+                        "surface": "#0a0e19",
+                        "surface-variant": "#202535",
+                        "surface-container-low": "#0f131f",
+                        "surface-container-high": "#1a1f2e",
+                        "surface-container-highest": "#202535",
+                        "on-surface": "#e8eafb",
+                        "on-surface-variant": "#a7aaba",
+                        "on-primary": "#0f00a4",
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk", "sans-serif"],
+                        "body": ["Manrope", "sans-serif"],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="styles.css" rel="stylesheet" />
+    <script defer src="script.js"></script>
+    <script defer src="settings.js"></script>
+    <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+    <script defer src="triage.js"></script>
+</head>
+
+<body class="bg-surface text-on-surface font-body overflow-x-hidden selection:bg-primary/30">
+    
+    <!-- SideNavBar -->
+    <aside id="sidebar" class="flex flex-col fixed left-0 top-0 h-screen w-64 border-r border-white/5 bg-[#0a0e19] shadow-[20px_0_40px_rgba(0,0,0,0.4)] z-[60] font-headline tracking-tight transition-transform duration-300 -translate-x-full md:translate-x-0">
+        <div class="p-8">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-[0_0_20px_rgba(163,166,255,0.4)]">
+                    <span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">dataset</span>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold tracking-tighter text-indigo-400 text-white">OpenIssue</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-on-surface">AI Triage</p>
+                </div>
+            </div>
+            <nav class="space-y-2">
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="index.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="auto-labeling.html">
+                    <span class="material-symbols-outlined">label_important</span>
+                    <span>Auto Labeling</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="issue-analysis.html">
+                    <span class="material-symbols-outlined">analytics</span>
+                    <span>Issue Analysis</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="duplicate-detection.html">
+                    <span class="material-symbols-outlined">difference</span>
+                    <span>Duplicates</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="priority-dashboard.html">
+                    <span class="material-symbols-outlined">priority_high</span>
+                    <span>Priority</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="insights.html">
+                    <span class="material-symbols-outlined">insights</span>
+                    <span>Insights</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-indigo-400 font-bold border-r-2 border-indigo-400 bg-white/5 transition-all duration-300 hover:translate-x-1 shadow-[inset_4px_0_0_rgba(163,166,255,0.4)]" href="settings.html">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </div>
+        <div class="mt-auto p-6">
+            <button class="w-full py-2.5 bg-gradient-to-r from-primary to-primary-dim rounded-lg text-on-primary text-sm font-bold shadow-[0_0_20px_rgba(163,166,255,0.3)] hover:shadow-[0_0_25px_rgba(163,166,255,0.5)] transition-all">
+                Triage Now
+            </button>
+        </div>
+    </aside>
+
+    <!-- TopAppBar -->
+    <header class="flex items-center justify-between px-4 md:px-8 ml-0 md:ml-64 h-16 bg-surface/80 backdrop-blur-lg sticky top-0 z-40 transition-all duration-300 font-body font-medium border-b border-white/5">
+        <div class="flex items-center flex-1 gap-4">
+            <button id="sidebar-toggle" class="md:hidden p-2 text-slate-200 hover:bg-white/10 rounded-full transition-all">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <div class="relative w-full max-w-md hidden sm:block group">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface text-sm">search</span>
+                <input class="w-full bg-surface-container-low-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary focus:bg-surface-container-low transition-all text-on-surface placeholder:text-white focus:bg-surface-container-high focus:border-primary" placeholder="Search settings..." type="text" />
+            </div>
+        </div>
+        <div class="flex items-center gap-2 md:gap-4">
+            <button class="p-2 text-slate-200 hover:bg-white/10 rounded-full transition-all">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <div class="h-8 w-[1px] bg-white/5 mx-1 md:mx-2"></div>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p id="nav-username" class="text-sm font-bold text-on-surface">Guest User</p>
+                    <p class="text-[10px] text-on-surface italic">GitHub Connected</p>
+                </div>
+                <img id="nav-avatar" alt="User Profile" class="h-9 w-9 rounded-full border border-white/10 object-cover bg-surface-container-high" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a7aaba'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E" />
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="ml-0 md:ml-64 p-6 md:p-12 min-h-[calc(100vh-4rem)] relative">
+        <div class="oracle-pulse !top-20 !left-1/3 !opacity-20 !w-[500px] !h-[500px] !bg-primary/10"></div>
+        
+        <div class="max-w-5xl mx-auto z-10 relative">
+            <header class="mb-12">
+                <h2 class="text-4xl md:text-5xl font-extrabold font-headline tracking-tighter text-white mb-4">System <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Configuration</span></h2>
+                <p class="text-on-surface text-lg max-w-2xl">Refine the neural pathways of your triage engine and manage environment orchestration.</p>
+            </header>
+
+            <div class="space-y-12">
+                <!-- AI Model Configuration -->
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 border-b border-white/5 pb-12">
+                    <div>
+                        <h3 class="text-xl font-extrabold font-headline text-primary mb-2 flex items-center gap-2 tracking-tight">
+                            <span class="material-symbols-outlined text-sm text-primary">neurology</span> AI Model Configuration
+                        </h3>
+                        <p class="text-sm text-on-surface leading-relaxed">Adjust the cognitive load and confidence intervals of the triage processor.</p>
+                    </div>
+                    <div class="md:col-span-2 space-y-6">
+                        <div class="glass-card p-6 md:p-8 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+                            <div class="mb-10">
+                                <label class="flex justify-between items-center mb-4 text-white">
+                                    <span class="font-bold text-on-surface text-lg font-headline">Triage Thresholds</span>
+                                    <span class="text-primary font-headline text-2xl font-bold"><span id="threshold-val">85</span>% <span class="text-sm font-normal text-on-surface">Confidence</span></span>
+                                </label>
+                                <div class="relative pt-1">
+                                    <input id="triage-slider" class="w-full relative z-10 text-white placeholder:text-slate-400 bg-surface-container-low border border-white/10 focus:ring-2 focus:ring-primary focus:bg-surface-container-high focus:border-primary" max="100" min="0" type="range" value="85" />
+                                </div>
+                                <div class="flex justify-between mt-3 text-[10px] text-on-surface font-bold tracking-widest uppercase">
+                                    <span>Liberal (More noise)</span>
+                                    <span>Strict (High precision)</span>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <!-- Toggle 1 -->
+                                <div id="toggle-categorization" class="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-colors cursor-pointer block-toggle">
+                                    <div>
+                                        <p class="font-bold text-on-surface font-headline">Automated Categorization</p>
+                                        <p class="text-xs text-on-surface mt-1">AI will auto-label issues based on content.</p>
+                                    </div>
+                                    <button class="w-12 h-6 rounded-full bg-primary relative transition-colors duration-300 pointer-events-none toggle-knob">
+                                        <div class="absolute right-1 top-[2px] w-5 h-5 bg-white rounded-full shadow-sm transition-all duration-300 toggle-circle"></div>
+                                    </button>
+                                </div>
+                                <!-- Toggle 2 -->
+                                <div id="toggle-sentiment" class="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-colors cursor-pointer block-toggle">
+                                    <div>
+                                        <p class="font-bold text-on-surface font-headline">Sentiment Extraction</p>
+                                        <p class="text-xs text-on-surface mt-1">Priority boosting for frustrated user reports.</p>
+                                    </div>
+                                    <button class="w-12 h-6 rounded-full bg-surface-container-highest relative transition-colors duration-300 pointer-events-none toggle-knob">
+                                        <div class="absolute left-1 top-[2px] w-5 h-5 bg-on-surface-variant rounded-full shadow-sm transition-all duration-300 toggle-circle"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Integrations (GitHub) -->
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 border-b border-white/5 pb-12">
+                    <div>
+                        <h3 class="text-xl font-extrabold font-headline text-primary mb-2 flex items-center gap-2 tracking-tight">
+                            <span class="material-symbols-outlined text-sm text-primary">hub</span> Integrations
+                        </h3>
+                        <p class="text-sm text-on-surface leading-relaxed">Connect your development ecosystem to synchronise workflow state.</p>
+                    </div>
+                    <div class="md:col-span-2 grid grid-cols-1 gap-6">
+                        <!-- GitHub -->
+                        <div id="github-integration-card" class="glass-card p-6 rounded-2xl border border-primary/30 bg-primary/5 transition-all duration-300 group cursor-pointer relative overflow-hidden">
+                            <span class="material-symbols-outlined animate-spin text-primary">refresh</span> Loading GitHub state...
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Smart Suggestions -->
+                <div id="ai-smart-suggestions" class="space-y-4 mt-8 pb-10"></div>
+                
+            </div>
+            
+            <!-- Toast Notification Container Mapping -->
+            <div id="toast-container" class="fixed bottom-6 right-6 flex flex-col gap-2 z-[200]"></div>
+        </div>
+    </main>
+</body>
+</html>
