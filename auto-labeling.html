@@ -141,16 +141,22 @@
 
                 <div class="glass-card rounded-2xl border border-white/5 p-4 md:p-8">
                     <!-- Filters -->
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-white/5 gap-4">
-                        <div class="flex flex-wrap gap-2 md:gap-4" id="filter-buttons">
-                            <button data-filter="incoming" class="px-4 py-2 rounded-full bg-white/5 text-on-surface font-bold text-sm border-2 border-primary/30 transition-all focus:outline-none shadow-[0_0_15px_rgba(163,166,255,0.15)]">Incoming Stream</button>
-                            <button data-filter="review" class="px-4 py-2 rounded-full text-on-surface font-bold text-sm hover:text-on-surface transition-colors border-2 border-transparent">Needs Review</button>
-                            <button data-filter="approved" class="px-4 py-2 rounded-full text-on-surface font-bold text-sm hover:text-on-surface transition-colors border-2 border-transparent">Auto-Approved</button>
+                        <div class="flex flex-col sm:flex-row items-center gap-4">
+                            <div class="flex flex-wrap gap-2 md:gap-4" id="filter-buttons">
+                                <button data-filter="incoming" class="px-4 py-2 rounded-full bg-white/5 text-on-surface font-bold text-sm border-2 border-primary/30 transition-all focus:outline-none shadow-[0_0_15px_rgba(163,166,255,0.15)]">Incoming Stream</button>
+                                <button data-filter="review" class="px-4 py-2 rounded-full text-on-surface font-bold text-sm hover:text-on-surface transition-colors border-2 border-transparent">Needs Review</button>
+                                <button data-filter="approved" class="px-4 py-2 rounded-full text-on-surface font-bold text-sm hover:text-on-surface transition-colors border-2 border-transparent">Auto-Approved</button>
+                            </div>
+                            <div class="h-8 w-[1px] bg-white/5 mx-2 hidden sm:block"></div>
+                            <button id="auto-label-btn" class="flex items-center gap-2 px-6 py-2 rounded-full bg-indigo-500/10 text-indigo-400 font-bold text-sm border border-indigo-500/20 hover:bg-indigo-500/20 transition-all group">
+                                <span class="material-symbols-outlined text-sm group-hover:rotate-12 transition-transform">robot_2</span>
+                                Neural Auto-Label
+                            </button>
+                            <span id="label-status" class="text-[10px] uppercase tracking-widest text-primary font-bold animate-pulse hidden">Labeling...</span>
                         </div>
                         <button class="text-on-surface hover:text-on-surface transition-colors">
                             <span class="material-symbols-outlined">filter_list</span>
                         </button>
-                    </div>
 
                     <!-- Issues List -->
                     <div id="issues-container" class="space-y-4">
