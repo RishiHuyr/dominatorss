@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Global User Profile Manager
 const fetchUser = async () => {
     try {
@@ -28,12 +29,29 @@ const fetchUser = async () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchUser();
+=======
+// Global Authentication Enforcement
+(function() {
+    const isAuthPage = window.location.pathname.includes('login.html') || window.location.pathname.includes('signup.html');
+    const sessionStr = localStorage.getItem('openissue_session') || sessionStorage.getItem('openissue_session');
+    
+    if (!sessionStr && !isAuthPage) {
+        window.location.href = 'login.html';
+    }
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+>>>>>>> 33b309ade027da7c1da8485ff817f3346a315b24
     
     // Inject Logout Button and User Data into Dashboard Pages
     const isAuthPage = window.location.pathname.includes('login.html') || window.location.pathname.includes('signup.html');
     if (!isAuthPage) {
         const sidebarNav = document.querySelector('aside#sidebar nav');
         if (sidebarNav) {
+<<<<<<< HEAD
+=======
+            // Add spacing between main nav and logout
+>>>>>>> 33b309ade027da7c1da8485ff817f3346a315b24
             const logoutContainer = document.createElement('div');
             logoutContainer.className = 'mt-6 pt-4 border-t border-white/5 space-y-2';
             logoutContainer.innerHTML = `
@@ -44,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             sidebarNav.parentElement.appendChild(logoutContainer);
 
+<<<<<<< HEAD
             document.getElementById('logout-btn').addEventListener('click', async () => {
                 try {
                     await fetch('http://localhost:5000/auth/logout', { method: 'POST' });
@@ -53,6 +72,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 } catch(e) { window.location.href = 'login.html'; }
             });
         }
+=======
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('openissue_session');
+                sessionStorage.removeItem('openissue_session');
+                window.location.href = 'login.html';
+            });
+        }
+        
+        // Update user profile name if available
+        const sessionStr = localStorage.getItem('openissue_session') || sessionStorage.getItem('openissue_session');
+        if (sessionStr) {
+            try {
+                const user = JSON.parse(sessionStr);
+                const nameDisplay = document.querySelector('header .text-sm.font-bold.text-on-surface');
+                if (nameDisplay) {
+                    nameDisplay.textContent = user.name || user.email.split('@')[0];
+                }
+            } catch(e) {}
+        }
+>>>>>>> 33b309ade027da7c1da8485ff817f3346a315b24
     }
 
     // 1. Sidebar Toggle Logic for Mobile
